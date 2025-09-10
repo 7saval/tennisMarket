@@ -76,6 +76,7 @@ function order(response, productId){
     // head 적기 : 상태코드, 요청타입
     response.writeHead(200, {'Content-Type' : 'text/html'});
 
+    // 인서트 쿼리 던지기
     mariadb.query("INSERT INTO orderlist VALUES(" + productId + ", '"+ new Date().toLocaleDateString() + "');",
 function(err, rows){
     console.log(rows);
@@ -91,22 +92,20 @@ function orderlist(response){
     response.writeHead(200, {'Content-Type' : 'text/html'});
 
     mariadb.query("SELECT * FROM orderlist", function(err, rows){
-    // write body. body 적기
-    // orderlist_view에 <table>있음
-    response.write(orderlist_view);
+        // write body. body 적기
+        // orderlist_view에 <table>있음
+        response.write(orderlist_view);
 
-    rows.forEach(element => {
-        response.write("<tr>"
-                    + "<td>"+element.product_id+"</td>"
-                    + "<td>"+element.order_date+"</td>"
-                    + "</tr>");
-    });
-    response.write("</table>");
-    // response 종료. 전송바람
-    response.end();
-})
-    
-    
+        rows.forEach(element => {
+            response.write("<tr>"
+                        + "<td>"+element.product_id+"</td>"
+                        + "<td>"+element.order_date+"</td>"
+                        + "</tr>");
+        });
+        response.write("</table>");
+        // response 종료. 전송바람
+        response.end();
+    })
 }
 
 let handle = {}; // key:value 쌍으로 이루어진 변수(사전)

@@ -7,9 +7,9 @@ const mariadb = require('mysql');
 const conn = mariadb.createConnection(
     {
         host: 'localhost',
-        port: 3307,
-        user: 'user',
-        password: '1234',
+        port: 3306,
+        user: 'root',
+        password: 'root',
         database: 'Tennis'
     }
 );
